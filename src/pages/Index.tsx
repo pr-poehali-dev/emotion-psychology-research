@@ -5,269 +5,408 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
-const emotions = [
+const scenarios = [
   {
-    name: 'Радость',
-    icon: 'Smile',
-    color: 'bg-yellow-100 text-yellow-700',
-    description: 'Чувство удовольствия и благополучия. Радость делает нас открытыми миру и другим людям.',
-    benefits: ['Укрепляет иммунитет', 'Улучшает отношения', 'Повышает творчество']
+    id: 1,
+    title: 'Первое свидание',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Идеальный вечер, непринужденная беседа до утра, мгновенная химия и понимание с полуслова.',
+      icon: 'Heart',
+      color: 'text-pink-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Неловкие паузы, опоздание на 15 минут, разговоры о погоде и поиск общих тем.',
+      icon: 'Coffee',
+      color: 'text-amber-500'
+    },
+    insight: 'Настоящая близость строится постепенно. Нервозность — это нормально, она показывает, что вам не всё равно.',
+    category: 'Отношения'
   },
   {
-    name: 'Грусть',
-    icon: 'CloudRain',
-    color: 'bg-blue-100 text-blue-700',
-    description: 'Естественная реакция на потерю. Грусть помогает переосмыслить ценности и замедлиться.',
-    benefits: ['Способствует рефлексии', 'Учит эмпатии', 'Помогает принять изменения']
+    id: 2,
+    title: 'Новая работа',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Вы сразу станете частью команды, быстро освоите все процессы и покажете блестящие результаты.',
+      icon: 'Briefcase',
+      color: 'text-blue-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Путаница с доступами, незнакомые системы, чувство потерянности и учёба в первые месяцы.',
+      icon: 'Laptop',
+      color: 'text-slate-500'
+    },
+    insight: 'Адаптация занимает 3-6 месяцев. Не сравнивайте свой первый день с чужими успехами спустя годы.',
+    category: 'Карьера'
   },
   {
-    name: 'Гнев',
-    icon: 'Flame',
-    color: 'bg-red-100 text-red-700',
-    description: 'Энергия для защиты границ. Гнев сигнализирует о нарушении важных для нас правил.',
-    benefits: ['Мобилизует силы', 'Защищает границы', 'Показывает ценности']
+    id: 3,
+    title: 'Переезд в новый город',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Новая захватывающая жизнь, множество друзей, постоянные приключения и открытия.',
+      icon: 'Plane',
+      color: 'text-purple-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Одиночество первых месяцев, тоска по привычному, поиск новых связей и рутина обустройства.',
+      icon: 'Home',
+      color: 'text-orange-500'
+    },
+    insight: 'Ностальгия — это часть перехода. Новые корни прорастают медленно, но именно это делает их крепкими.',
+    category: 'Изменения'
   },
   {
-    name: 'Страх',
-    icon: 'AlertTriangle',
-    color: 'bg-purple-100 text-purple-700',
-    description: 'Древний защитный механизм. Страх предупреждает об опасности и готовит к действию.',
-    benefits: ['Повышает внимание', 'Активирует защиту', 'Учит осторожности']
+    id: 4,
+    title: 'Саморазвитие',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Прочитаю книгу — и моя жизнь кардинально изменится. Сразу стану лучшей версией себя.',
+      icon: 'BookOpen',
+      color: 'text-emerald-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Знания остаются теорией без практики. Изменения требуют ежедневных маленьких усилий.',
+      icon: 'TrendingUp',
+      color: 'text-teal-500'
+    },
+    insight: 'Трансформация — это не событие, а процесс. 1% улучшения каждый день даёт 37-кратный рост за год.',
+    category: 'Личное'
   },
   {
-    name: 'Удивление',
-    icon: 'Sparkles',
-    color: 'bg-pink-100 text-pink-700',
-    description: 'Реакция на неожиданное. Удивление открывает ум для нового опыта и знаний.',
-    benefits: ['Стимулирует обучение', 'Расширяет восприятие', 'Развивает гибкость']
+    id: 5,
+    title: 'Социальные сети vs жизнь',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Безупречная жизнь других: идеальные отношения, карьера, путешествия и счастье 24/7.',
+      icon: 'Instagram',
+      color: 'text-rose-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Люди показывают highlight-reel. За красивым фото — обычные будни, проблемы и сомнения.',
+      icon: 'Eye',
+      color: 'text-gray-500'
+    },
+    insight: 'Сравнение — вор радости. Ваша обычная жизнь так же ценна, как чужие отредактированные моменты.',
+    category: 'Социум'
   },
   {
-    name: 'Отвращение',
-    icon: 'X',
-    color: 'bg-green-100 text-green-700',
-    description: 'Защита от токсичного. Отвращение помогает избегать того, что вредит нашему благополучию.',
-    benefits: ['Защищает здоровье', 'Формирует вкус', 'Устанавливает стандарты']
+    id: 6,
+    title: 'Терапия и психолог',
+    expectation: {
+      title: 'Ожидание',
+      description: 'Психолог даст волшебные советы, и все проблемы решатся за пару сессий.',
+      icon: 'Sparkles',
+      color: 'text-yellow-500'
+    },
+    reality: {
+      title: 'Реальность',
+      description: 'Терапия — это труд. Психолог не даёт ответы, а помогает вам самим их находить.',
+      icon: 'MessageCircle',
+      color: 'text-indigo-500'
+    },
+    insight: 'Изменения начинаются с осознания. Готовность к честности с собой важнее поиска быстрого решения.',
+    category: 'Психология'
   }
 ];
 
-const tests = [
+const principles = [
   {
-    title: 'Тест эмоционального интеллекта',
-    description: 'Узнай, насколько хорошо ты понимаешь свои и чужие эмоции',
-    questions: 12,
-    time: 8,
-    icon: 'Brain'
+    title: 'Эффект разрыва ожиданий',
+    description: 'Чем выше ожидания, тем сильнее разочарование. Счастье = Реальность − Ожидания.',
+    icon: 'TrendingDown',
+    color: 'bg-red-50 border-red-200'
   },
   {
-    title: 'Определение базовой эмоции',
-    description: 'Какая эмоция преобладает в твоей жизни прямо сейчас',
-    questions: 8,
-    time: 5,
-    icon: 'Heart'
+    title: 'Позитивная иллюзия',
+    description: 'Мы склонны переоценивать будущие события и недооценивать текущий момент.',
+    icon: 'Glasses',
+    color: 'bg-blue-50 border-blue-200'
   },
   {
-    title: 'Уровень стресса',
-    description: 'Оцени текущее состояние и получи рекомендации',
-    questions: 10,
-    time: 6,
-    icon: 'Activity'
+    title: 'Планирование ошибок',
+    description: 'Люди систематически недооценивают время и усилия, необходимые для выполнения задач.',
+    icon: 'Clock',
+    color: 'bg-purple-50 border-purple-200'
+  },
+  {
+    title: 'Гедоническая адаптация',
+    description: 'Мы быстро привыкаем к хорошему и возвращаемся к базовому уровню счастья.',
+    icon: 'RefreshCw',
+    color: 'bg-green-50 border-green-200'
+  },
+  {
+    title: 'Ошибка атрибуции',
+    description: 'Мы судим себя по намерениям, а других — по их действиям и результатам.',
+    icon: 'Users',
+    color: 'bg-orange-50 border-orange-200'
+  },
+  {
+    title: 'Парадокс выбора',
+    description: 'Больше вариантов ведёт к более высоким ожиданиям и большей вероятности разочарования.',
+    icon: 'GitBranch',
+    color: 'bg-pink-50 border-pink-200'
   }
 ];
 
-const meditations = [
+const practices = [
   {
-    title: 'Утреннее пробуждение',
-    duration: '10 мин',
-    description: 'Мягкое начало дня с благодарностью и намерением',
-    category: 'Утро',
-    icon: 'Sunrise'
+    title: 'Техника "Лучший/Реальный/Худший"',
+    description: 'Перед событием продумайте три сценария: оптимистичный, реалистичный и пессимистичный. Это снижает эмоциональные качели.',
+    steps: [
+      'Опишите идеальный исход',
+      'Представьте наиболее вероятный',
+      'Подумайте о худшем варианте',
+      'Примите, что любой из них нормален'
+    ],
+    icon: 'List',
+    duration: '10 мин'
   },
   {
-    title: 'Дыхание при тревоге',
-    duration: '5 мин',
-    description: 'Быстрая практика для снижения стресса и беспокойства',
-    category: 'Скорая помощь',
-    icon: 'Wind'
+    title: 'Дневник благодарности настоящему',
+    description: 'Каждый вечер записывайте 3 вещи, которые в вашей текущей реальности уже хороши — без сравнения с будущим.',
+    steps: [
+      'Найдите тихое место',
+      'Вспомните сегодняшний день',
+      'Запишите 3 момента благодарности',
+      'Почувствуйте их ценность'
+    ],
+    icon: 'BookHeart',
+    duration: '5 мин'
   },
   {
-    title: 'Сканирование тела',
-    duration: '15 мин',
-    description: 'Глубокое расслабление через осознание физических ощущений',
-    category: 'Релаксация',
-    icon: 'Waves'
+    title: 'Медитация принятия',
+    description: 'Практика осознанного наблюдения за разницей между ожиданиями и реальностью без осуждения.',
+    steps: [
+      'Примите удобную позу',
+      'Вспомните недавнее разочарование',
+      'Наблюдайте эмоции без оценки',
+      'Отпустите необходимость контроля'
+    ],
+    icon: 'Flower',
+    duration: '15 мин'
   },
   {
-    title: 'Практика любящей доброты',
-    duration: '12 мин',
-    description: 'Развитие сострадания к себе и другим',
-    category: 'Отношения',
-    icon: 'Heart'
-  },
-  {
-    title: 'Вечернее благодарение',
-    duration: '8 мин',
-    description: 'Рефлексия дня и настройка на спокойный сон',
-    category: 'Вечер',
-    icon: 'Moon'
-  },
-  {
-    title: 'Работа с гневом',
-    duration: '7 мин',
-    description: 'Техника осознанного проживания сильных эмоций',
-    category: 'Эмоции',
-    icon: 'Flame'
+    title: 'Вопросы для пересмотра',
+    description: 'Когда чувствуете разочарование, задайте себе эти вопросы для переосмысления ситуации.',
+    steps: [
+      'Какие ожидания у меня были?',
+      'Откуда они взялись?',
+      'Что хорошего есть в реальности?',
+      'Чему это меня учит?'
+    ],
+    icon: 'HelpCircle',
+    duration: '7 мин'
   }
 ];
 
 export default function Index() {
-  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+  const [selectedScenario, setSelectedScenario] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState('scenarios');
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <header className="text-center mb-16 animate-fade-in">
-          <h1 className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-4">
-            Психология Эмоций
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Исследуй мир эмоций, пройди психологические тесты и открой практики осознанности для гармоничной жизни
-          </p>
-        </header>
+      <div
+        className="relative bg-gradient-to-br from-amber-50 via-rose-50 to-purple-50 py-20 mb-12"
+        style={{
+          backgroundImage: 'url(https://cdn.poehali.dev/projects/fbfdb689-971d-4493-ab0b-f5890a30c46c/files/90a23a7a-0531-48a1-92f3-1f1b1a9add00.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'soft-light'
+        }}
+      >
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <Badge variant="secondary" className="mb-4">
+              Психология восприятия
+            </Badge>
+            <h1 className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
+              Ожидание и Реальность
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              Почему жизнь редко соответствует нашим представлениям о ней — и как с этим работать для большего счастья
+            </p>
+          </div>
+        </div>
+      </div>
 
-        <Tabs defaultValue="emotions" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 max-w-md mx-auto">
-            <TabsTrigger value="emotions" className="flex items-center gap-2">
-              <Icon name="Smile" size={16} />
-              <span className="hidden sm:inline">Эмоции</span>
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-12">
+          <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+            <TabsTrigger value="scenarios" className="flex items-center gap-2">
+              <Icon name="Split" size={16} />
+              <span className="hidden sm:inline">Сценарии</span>
             </TabsTrigger>
-            <TabsTrigger value="tests" className="flex items-center gap-2">
-              <Icon name="ClipboardList" size={16} />
-              <span className="hidden sm:inline">Тесты</span>
+            <TabsTrigger value="psychology" className="flex items-center gap-2">
+              <Icon name="Brain" size={16} />
+              <span className="hidden sm:inline">Психология</span>
             </TabsTrigger>
-            <TabsTrigger value="meditations" className="flex items-center gap-2">
-              <Icon name="Sparkles" size={16} />
-              <span className="hidden sm:inline">Медитации</span>
+            <TabsTrigger value="practices" className="flex items-center gap-2">
+              <Icon name="Target" size={16} />
+              <span className="hidden sm:inline">Практики</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="emotions" className="space-y-8 animate-fade-in">
+          <TabsContent value="scenarios" className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="font-heading text-3xl font-semibold mb-3">Базовые эмоции</h2>
-              <p className="text-muted-foreground">
-                Каждая эмоция — это мудрый учитель. Познакомься с ними поближе
+              <h2 className="font-heading text-3xl font-semibold mb-3">Типичные ситуации</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Узнайте себя в этих сценариях и поймите психологию разрыва между ожиданиями и реальностью
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {emotions.map((emotion, index) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {scenarios.map((scenario, index) => (
                 <Card
-                  key={emotion.name}
-                  className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                    selectedEmotion === emotion.name ? 'ring-2 ring-primary' : ''
+                  key={scenario.id}
+                  className={`cursor-pointer transition-all duration-300 hover:shadow-xl ${
+                    selectedScenario === scenario.id ? 'ring-2 ring-primary scale-[1.02]' : ''
                   }`}
-                  onClick={() => setSelectedEmotion(selectedEmotion === emotion.name ? null : emotion.name)}
+                  onClick={() => setSelectedScenario(selectedScenario === scenario.id ? null : scenario.id)}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardHeader>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className={`p-3 rounded-full ${emotion.color}`}>
-                        <Icon name={emotion.icon as any} size={24} />
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <Badge variant="outline" className="mb-2">
+                          {scenario.category}
+                        </Badge>
+                        <CardTitle className="font-heading text-xl mb-2">{scenario.title}</CardTitle>
                       </div>
-                      <CardTitle className="font-heading text-xl">{emotion.name}</CardTitle>
+                      <Icon
+                        name={selectedScenario === scenario.id ? 'ChevronUp' : 'ChevronDown'}
+                        size={20}
+                        className="text-muted-foreground"
+                      />
                     </div>
-                    <CardDescription>{emotion.description}</CardDescription>
                   </CardHeader>
-                  {selectedEmotion === emotion.name && (
-                    <CardContent className="animate-accordion-down">
-                      <div className="pt-4 border-t">
-                        <p className="font-semibold mb-3 text-sm">Польза эмоции:</p>
-                        <ul className="space-y-2">
-                          {emotion.benefits.map((benefit) => (
-                            <li key={benefit} className="flex items-start gap-2 text-sm">
-                              <Icon name="Check" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </CardContent>
-                  )}
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
 
-          <TabsContent value="tests" className="space-y-8 animate-fade-in">
-            <div className="text-center mb-8">
-              <h2 className="font-heading text-3xl font-semibold mb-3">Психологические тесты</h2>
-              <p className="text-muted-foreground">
-                Узнай себя лучше через научно обоснованные методики
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tests.map((test, index) => (
-                <Card
-                  key={test.title}
-                  className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="p-3 rounded-full bg-primary/10 text-primary">
-                        <Icon name={test.icon as any} size={24} />
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 rounded-lg bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-100">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Icon name={scenario.expectation.icon as any} size={18} className={scenario.expectation.color} />
+                          <h3 className="font-semibold text-sm">{scenario.expectation.title}</h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{scenario.expectation.description}</p>
                       </div>
-                      <Badge variant="secondary">{test.time} мин</Badge>
+
+                      <div className="p-4 rounded-lg bg-gradient-to-br from-slate-50 to-gray-50 border border-slate-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Icon name={scenario.reality.icon as any} size={18} className={scenario.reality.color} />
+                          <h3 className="font-semibold text-sm">{scenario.reality.title}</h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{scenario.reality.description}</p>
+                      </div>
                     </div>
-                    <CardTitle className="font-heading text-lg">{test.title}</CardTitle>
-                    <CardDescription>{test.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                      <Icon name="FileQuestion" size={16} />
-                      <span>{test.questions} вопросов</span>
-                    </div>
-                    <Button className="w-full" size="sm">
-                      Начать тест
-                    </Button>
+
+                    {selectedScenario === scenario.id && (
+                      <div className="pt-4 border-t animate-accordion-down">
+                        <div className="flex gap-3 p-4 bg-accent/50 rounded-lg">
+                          <Icon name="Lightbulb" size={20} className="text-primary flex-shrink-0 mt-1" />
+                          <div>
+                            <h4 className="font-semibold mb-2">Психологический инсайт</h4>
+                            <p className="text-sm text-muted-foreground">{scenario.insight}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="meditations" className="space-y-8 animate-fade-in">
+          <TabsContent value="psychology" className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="font-heading text-3xl font-semibold mb-3">Медитации и практики</h2>
-              <p className="text-muted-foreground">
-                Техники осознанности для ежедневной практики
+              <h2 className="font-heading text-3xl font-semibold mb-3">Когнитивные искажения</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Научные принципы, объясняющие, почему наш мозг создаёт нереалистичные ожидания
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {meditations.map((meditation, index) => (
+              {principles.map((principle, index) => (
                 <Card
-                  key={meditation.title}
-                  className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                  key={principle.title}
+                  className={`hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 ${principle.color}`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardHeader>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="p-3 rounded-full bg-accent text-accent-foreground">
-                        <Icon name={meditation.icon as any} size={24} />
-                      </div>
-                      <Badge variant="outline">{meditation.category}</Badge>
+                    <div className="p-3 rounded-full bg-background w-fit mb-3">
+                      <Icon name={principle.icon as any} size={24} className="text-primary" />
                     </div>
-                    <CardTitle className="font-heading text-lg">{meditation.title}</CardTitle>
-                    <CardDescription>{meditation.description}</CardDescription>
+                    <CardTitle className="font-heading text-lg">{principle.title}</CardTitle>
+                    <CardDescription className="leading-relaxed">{principle.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-12 p-8 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-orange-200">
+              <div className="flex gap-4">
+                <Icon name="BookOpen" size={32} className="text-orange-500 flex-shrink-0" />
+                <div>
+                  <h3 className="font-heading text-2xl font-semibold mb-3">Формула счастья</h3>
+                  <p className="text-lg mb-4 text-muted-foreground">
+                    <span className="font-semibold text-foreground">Счастье = Реальность − Ожидания</span>
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Это не значит, что нужно ничего не ожидать. Но осознанность в формировании ожиданий позволяет
+                    видеть жизнь такой, какая она есть — и находить в ней больше хорошего. Снижение нереалистичных
+                    ожиданий не делает нас пессимистами, а помогает быть благодарными за настоящее.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="practices" className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="font-heading text-3xl font-semibold mb-3">Практики работы с ожиданиями</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Инструменты для развития реалистичного и сострадательного взгляда на жизнь
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {practices.map((practice, index) => (
+                <Card
+                  key={practice.title}
+                  className="hover:shadow-lg transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="p-3 rounded-full bg-primary/10">
+                        <Icon name={practice.icon as any} size={24} className="text-primary" />
+                      </div>
+                      <Badge variant="secondary">{practice.duration}</Badge>
+                    </div>
+                    <CardTitle className="font-heading text-lg">{practice.title}</CardTitle>
+                    <CardDescription>{practice.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Icon name="Clock" size={16} />
-                        <span>{meditation.duration}</span>
-                      </div>
-                      <Button className="w-full" size="sm" variant="secondary">
+                      <p className="font-semibold text-sm">Шаги практики:</p>
+                      <ul className="space-y-2">
+                        {practice.steps.map((step, idx) => (
+                          <li key={idx} className="flex gap-3 text-sm">
+                            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-semibold">
+                              {idx + 1}
+                            </span>
+                            <span className="text-muted-foreground pt-0.5">{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Button variant="outline" size="sm" className="w-full mt-4">
                         <Icon name="Play" size={16} className="mr-2" />
                         Начать практику
                       </Button>
@@ -276,11 +415,32 @@ export default function Index() {
                 </Card>
               ))}
             </div>
+
+            <div className="mt-12 p-8 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+              <div className="flex gap-4">
+                <Icon name="Heart" size={32} className="text-purple-500 flex-shrink-0" />
+                <div>
+                  <h3 className="font-heading text-2xl font-semibold mb-3">Принцип сострадания к себе</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Разочарование в реальности часто связано с внутренней критикой: "Я должен был знать", "Почему я
+                    так наивен", "Другие бы справились лучше". Но ожидания — это не ошибка мышления, а попытка мозга
+                    подготовиться к будущему.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <span className="font-semibold text-foreground">Будьте добры к себе</span> в моменты, когда жизнь
+                    идёт не по плану. Это не слабость — это мудрость принятия несовершенства мира и себя в нём.
+                  </p>
+                </div>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
 
         <footer className="mt-20 text-center text-sm text-muted-foreground border-t pt-8">
-          <p>Психология — это путешествие к себе. Будьте добры к себе на этом пути 💜</p>
+          <p className="mb-2">
+            "Ожидание — это привязанность к конкретному исходу. Надежда — это открытость к возможностям."
+          </p>
+          <p className="text-xs">— Исследования по позитивной психологии</p>
         </footer>
       </div>
     </div>
